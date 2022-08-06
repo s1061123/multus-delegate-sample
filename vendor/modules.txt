@@ -1,0 +1,24 @@
+# github.com/BurntSushi/toml v0.3.1
+## explicit
+# github.com/containernetworking/cni v1.1.2
+## explicit; go 1.14
+github.com/containernetworking/cni/pkg/skel
+github.com/containernetworking/cni/pkg/types
+github.com/containernetworking/cni/pkg/types/020
+github.com/containernetworking/cni/pkg/types/040
+github.com/containernetworking/cni/pkg/types/100
+github.com/containernetworking/cni/pkg/types/create
+github.com/containernetworking/cni/pkg/types/internal
+github.com/containernetworking/cni/pkg/utils
+github.com/containernetworking/cni/pkg/version
+# github.com/pkg/errors v0.9.1
+## explicit
+github.com/pkg/errors
+# gopkg.in/k8snetworkplumbingwg/multus-cni.v3 v3.7.2 => gopkg.in/s1061123/multus-cni.v3 v3.0.0-20220808042405-59623704b8a6
+## explicit; go 1.17
+gopkg.in/k8snetworkplumbingwg/multus-cni.v3/pkg/logging
+gopkg.in/k8snetworkplumbingwg/multus-cni.v3/pkg/server/api
+# gopkg.in/natefinch/lumberjack.v2 v2.0.0
+## explicit
+gopkg.in/natefinch/lumberjack.v2
+# gopkg.in/k8snetworkplumbingwg/multus-cni.v3 => gopkg.in/s1061123/multus-cni.v3 v3.0.0-20220808042405-59623704b8a6
