@@ -46,6 +46,8 @@ func main() {
 	flag.StringVar(&ifname, "ifname", "", "ifname")
 	podUID := ""
 	flag.StringVar(&podUID, "poduid", "", "poduid")
+	ips := ""
+	flag.StringVar(&ips, "ips", "", "ips, comma separated")
 
 	flag.Parse()
 
@@ -68,8 +70,16 @@ func main() {
 		os.Exit(2)
 	}
 
+	var annotation *api.DelegateAnnotation
+	if ips != "" {
+		podIPs := strings.Split(ips, ",")
+		annotation = &api.DelegateAnnotation{
+			IPRequest: podIPs,
+		}
+	}
+
 	// From here, multus-daemon delegate API is invoked to add/del given CNI config
-	req := api.CreateDelegateRequest(mode, containerID, netns, ifname, podNamespace, podName, podUID, data)
+	req := api.CreateDelegateRequest(mode, containerID, netns, ifname, podNamespace, podName, podUID, data, annotation)
 	body, err := api.DoCNI(api.GetAPIEndpoint(api.MultusDelegateAPIEndpoint), req, api.SocketPath("/run/multus"))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error at DoCNI(): %v", err)

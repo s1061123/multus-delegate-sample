@@ -2,11 +2,11 @@ module github.com/s1061123/multus-delegate-sample
 
 go 1.18
 
-replace gopkg.in/k8snetworkplumbingwg/multus-cni.v3 => gopkg.in/s1061123/multus-cni.v3 v3.0.0-20220920165653-3e97437e31de
+replace gopkg.in/k8snetworkplumbingwg/multus-cni.v3 => gopkg.in/s1061123/multus-cni.v3 v3.0.0-20221012071351-54e57c230bdf
 
 require (
 	github.com/containernetworking/cni v1.1.2
-	gopkg.in/k8snetworkplumbingwg/multus-cni.v3 v3.9.1
+	gopkg.in/k8snetworkplumbingwg/multus-cni.v3 v3.9.2
 )
 
 require (
