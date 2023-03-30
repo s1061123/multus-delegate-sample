@@ -1,4 +1,5 @@
 // Copyright (c) 2018 Intel Corporation
+// Copyright (c) 2021 Multus Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,13 +16,13 @@
 package logging
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
 	"strings"
 	"time"
 
-	"github.com/pkg/errors"
 	lumberjack "gopkg.in/natefinch/lumberjack.v2"
 )
 

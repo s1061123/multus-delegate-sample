@@ -25,11 +25,11 @@ type Request struct {
 	// CNI configuration passed via stdin to the CNI plugin
 	Config []byte `json:"config,omitempty"`
 	// Annotation for Delegate request
-	Annotation *DelegateAnnotation `json:"delegateAnnotation,omitempty"`
+	InterfaceAttributes *DelegateInterfaceAttributes `json:"interfaceAttributes,omitempty"`
 }
 
-// DelegateAnnotation annotates delegate request for additional config
-type DelegateAnnotation struct {
+// DelegateInterfaceAttributes annotates delegate request for additional config
+type DelegateInterfaceAttributes struct {
 	// IPRequest contains an optional requested IP address for this network
 	// attachment
 	IPRequest []string `json:"ips,omitempty"`

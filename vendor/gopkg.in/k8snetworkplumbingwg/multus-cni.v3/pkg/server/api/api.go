@@ -11,7 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
 
 package api
 
@@ -19,7 +18,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net"
 	"net/http"
 	"strings"
@@ -31,6 +30,9 @@ const (
 	// MultusDelegateAPIEndpoint is an endpoint for multus delegate request (for hotplug)
 	MultusDelegateAPIEndpoint = "/delegate"
 	defaultMultusRunDir       = "/run/multus/"
+
+	// MultusHealthAPIEndpoint is an endpoint API clients can query to know if they can communicate w/ multus server
+	MultusHealthAPIEndpoint = "/healthz"
 )
 
 // DoCNI sends a CNI request to the CNI server via JSON + HTTP over a root-owned unix socket,
@@ -55,7 +57,7 @@ func DoCNI(url string, req interface{}, socketPath string) ([]byte, error) {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read CNI result: %v", err)
 	}
@@ -73,7 +75,7 @@ func GetAPIEndpoint(endpoint string) string {
 }
 
 // CreateDelegateRequest creates Request for delegate API request
-func CreateDelegateRequest(cniCommand, cniContainerID, cniNetNS, cniIFName, podNamespace, podName, podUID string, cniConfig []byte, delegateAnnotation *DelegateAnnotation) *Request {
+func CreateDelegateRequest(cniCommand, cniContainerID, cniNetNS, cniIFName, podNamespace, podName, podUID string, cniConfig []byte, interfaceAttributes *DelegateInterfaceAttributes) *Request {
 	return &Request{
 		Env: map[string]string{
 			"CNI_COMMAND":     strings.ToUpper(cniCommand),
@@ -82,7 +84,7 @@ func CreateDelegateRequest(cniCommand, cniContainerID, cniNetNS, cniIFName, podN
 			"CNI_IFNAME":      cniIFName,
 			"CNI_ARGS":        fmt.Sprintf("K8S_POD_NAMESPACE=%s;K8S_POD_NAME=%s;K8S_POD_UID=%s", podNamespace, podName, podUID),
 		},
-		Config:     cniConfig,
-		Annotation: delegateAnnotation,
+		Config:              cniConfig,
+		InterfaceAttributes: interfaceAttributes,
 	}
 }
